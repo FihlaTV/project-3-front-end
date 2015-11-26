@@ -1,0 +1,76 @@
+html {
+	overflow: hidden;
+}
+
+section {
+	margin: 0;
+}
+
+section#home-page {
+	margin-top: 40px;
+}
+
+footer {
+
+}
+
+.padding-div {
+	margin: 60px 0;
+}
+
+.form-style {
+	padding: 40px;
+}
+
+.no-padding-class {
+	padding: 0 !important;
+}
+
+.jumbotron {
+	background-image: url(http://stuffgradslike.com/wp-content/uploads/2013/07/Happy-Dog-Pictures-14.jpg) !important;]
+	background-position: ;
+	height: 600px;
+}
+
+.ui.text.container {
+	margin-top: 200px;
+	color: black;
+}
+
+.ui.text.container h1 {
+	color: black;
+}
+
+.ui.inverted.menu {
+}
+
+.edit-user-section {
+	margin: 60px 0 20px 0;
+}
+
+.text-center {
+	text-align: center;
+}
+
+section#homes {
+	min-height: 600px;
+}
+
+section#user-profile {
+	min-height: 600px;
+}
+
+section#login.form-style {
+	background-image: url("http://www.skfny.com/wp-content/uploads/WHITE-CAT9.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 650px;
+}
+
+section#sign-up.form-style {
+	background-image: url("http://www.yourvets.co.uk/wp-content/uploads/2014/12/happy-dog.jpg");
+	background-repeat: no-repeat;
+	background-position: fixed;
+	background-size: cover;
+	height: 800px;
+}

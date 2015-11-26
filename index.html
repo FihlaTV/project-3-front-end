@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <link rel="icon" type="image/png" href="http://i722.photobucket.com/albums/ww230/Hennwen/Hennwen-Blogspot/favicon.png" />
+  <title>Pet Sitters</title>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.js"></script>
+  <script src="/js/app.js"></script>
+</head>
+<body>
+  <div class="pusher">
+    <!-- Nav Bar -->
+    <nav class="ui fixed inverted menu">
+      <div class="ui container">
+        <a href="/" class="header item" data-name="home-page">
+          Pet Sitters
+        </a>
+        <a href="#" class="item" data-name="homes">Find a house sit</a>
+        <div class="right item no-padding-class" id="logged-out">
+          <a href="#" class="ui floated item login-link" data-name="login">Login</a>
+          <a href="#" class="ui floated item signup-link" data-name="sign-up">Sign up</a>
+        </div>
+        <div class="right item no-padding-class" id="logged-in">
+          <a href="#" class="ui right floated item add-home" id="add-home" data-name="home-signup">Add Home</a>
+          <a href="#" class="ui right floated item edit-home" id="edit-home" data-name="home-edit">Edit Home</a>
+          <a href="#" class="ui right floated item profile-link" id="user-profile" data-name="user-profile">Profile</a>
+          <a href="#" class="ui right floated item edit-user" id="edit-user" data-name="edit-user">Account</a>
+          <a href="#" class="ui right floated item logout-link" id="logout">Logout</a>
+        </div>
+      </div>
+    </nav>
+    <!-- End of Nav Bar -->
+    <!-- Home Page -->
+    <section id="home-page">
+      <!-- Home Page Jumbo -->
+      <div class="home-page-jumbo">
+        <div class="ui inverted vertical masthead center aligned segment jumbotron">
+          <div class="ui text container">
+            <h1 class="ui inverted header">
+              Pet Sitters
+            </h1>
+            <h2>Find a house to sit or find a sitter.</h2>
+            <div class="ui huge primary button">Get Started <i class="right arrow icon"></i></div>
+          </div>
+        </div>
+        <!-- End of Home Page Jumbo -->
+        <!-- Quotes -->
+        <div class="ui vertical stripe quote segment">
+          <div class="ui equal width stackable internally celled grid">
+            <div class="center aligned row">
+              <div class="column">
+                <h3>"Amazing!"</h3>
+                <p>"Pet Sitters means I don't have to worry about my pet being happy while I'm away!"</p>
+                <p>
+                  <img src="http://semantic-ui.com/examples/assets/images/avatar/nan.jpg" class="ui avatar image"> <b>Emily</b>
+                </p>
+              </div>
+              <div class="column">
+                <h3>"Travel the world for free!"</h3>
+                <p>"I get to go everywhere I want in the world and my accomodation is free!"</p>
+                <p>
+                  <img src="http://semantic-ui.com/examples/assets/images/avatar/nan.jpg" class="ui avatar image"> <b>Peter</b>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End of Quotes -->
+    </section>
+    <!-- End of Home Page -->
+    <!-- Homes Page -->
+    <section id="homes">
+      <div class="padding-div">
+        <div class="ui grid">
+          <div class="row">
+            <div class="six wide column centered">
+              <h1 class="text-center">Search for homes</h1>
+              <div id="searcharea">
+                <div class="ui form">
+                  <div class="field">
+                    <input type="text" name="search" id="search" placeholder="Enter address, postcode or country" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="fourteen wide column centered">
+              <div id="update"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> 
+    <!-- End Homes Page -->
+    <!-- Sign Up -->
+    <section id="sign-up" class="form-style">
+      <div class="padding-div">
+        <div class="ui grid">
+          <div class="six wide column centered">
+            <h1 class="text-center">Sign Up</h1>
+            <form class="ui form" action="/signup" method="POST">
+              <div class="field">
+                <label for="first_name">First name</label>
+                <input type="text" name="first_name" id="first_name" placeholder="First name">
+              </div>
+              <div class="field">
+                <label for="last_name">Last name</label>
+                <input type="text" name="last_name" id="last_name" placeholder="Last name">
+              </div>
+              <div class="field">
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" placeholder="Email">
+              </div>
+              <div class="field">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Password">
+              </div>
+              <div class="field">
+                <label for="_passwordConfirmation">Confirm password</label>
+                <input type="password" id="_passwordConfirmation" name="_passwordConfirmation" placeholder="Confirm password">
+              </div>
+              <button class="ui button" type="submit">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End of Sign Up -->
+    <!-- Login -->
+    <section id="login" class="form-style">
+      <div class="padding-div">
+        <div class="ui grid">
+          <div class="six wide column centered">
+            <h2 class="text-center">Login</h2>
+            <form class="ui form" action="/login" method="POST">
+              <div class="field">
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" placeholder="Email">
+              </div>
+              <div class="field">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Password">
+              </div>
+              <button class="ui button" type="submit">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End of Login -->
+    <!-- start show user profile -->
+    <section id="user-profile">
+      <div class="padding-div">
+        <div class="ui grid">
+          <div class="three wide column centered">
+            <h1 class="text-center">Your profile</h1>
+            <div class="ui card">
+              <div id="show-user-pic"></div>
+              <div class="content">
+                <h3 id="profile-username"></h3>
+                <div class="meta">
+                  <h5>Biography</h5>
+                  <div id= "show-user-bio"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- end of show user profile -->
+    <!-- start edit user profile -->
+    <section id="edit-user" class="edit-user-section">
+      <div class="padding-div">
+        <div class="ui grid">
+          <div class="six wide column centered">
+            <h1 class="text-center">Your account details</h1>
+            <form class="ui form edit-user" action="/users/:id" method="POST">
+              <input type="hidden" name="_method" value="PUT">
+              <div class="field edit-user-first-name">
+                <label for="edit-user-first-name">First name</label>
+                <input type="text" name="first_name" id="edit-user-first-name">
+              </div>
+              <div class="field edit-user-last-name">
+                <label for="edit-user-last-name">Last name</label>
+                <input type="text" name="last_name" id="edit-user-last-name">
+              </div>
+              <div class="field edit-user-street-address">
+                <label for="edit-user-street-address">Address</label>
+                <input type="text" name="street_address" id="edit-user-street-address">
+              </div>
+              <div class="field edit-user-postcode">
+                <label for="edit-user-postcode">Postcode</label>
+                <input type="text" name="postcode" id="edit-user-postcode">
+              </div>
+              <div class="field edit-user-country">
+                <label for="edit-user-country">Country</label>
+                <input type="text" name="country" id="edit-user-country">
+              </div>
+              <div class="field edit-user-dob">
+                <label for="edit-user-dob">Date Of Birth</label>
+                <input type="date" name="dob" id="edit-user-dob">
+              </div>
+              <div class="field edit-user-bio">
+                <label for="edit-user-bio">About Me</label>
+                <input type="text" name="bio" id="edit-user-bio">
+              </div>
+<!--               <div class="field edit-user-profile-image">
+                <label for="edit-user-profile-image">Image Upload</label>
+                <input type="file" name="profile-image" id="edit-user-profile-image">
+              </div> -->
+              <select class="field edit-user-is-homeowner">
+                <option name="is_homeowner" id="edit-user-is-homeowner" value="true">Homeowner</option>
+                <option name="is_homeowner" id="edit-user-is-homeowner" value="false">Pet sitter</option>
+              </select>
+              <div class="field edit-user-submit">
+                <input class="ui button" type="submit" value="Save changes">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- end edit user profile -->
+    <!-- show home profile -->
+    <section id="show-home-profile">
+      <div class="padding-div">
+        <div class="ui grid">
+          <div class="six wide column centered">
+            <div class="show-home">
+              <h2>Home Type</h2>
+            </div>
+            <div class="home_image">
+              <h2>Images</h2>
+              <img height="300">
+            </div>
+            <div class="description">
+              <h2>Description And Responsibilities</h2>
+            </div>
+            <div class="address">
+              <h2>Address</h2>
+            </div>
+            <div class="postcode">
+              <h2>Postcode</h2>
+            </div>
+            <div class="pets">
+              <h2>Pet/s</h2>
+            </div>
+            <div class="date_from">
+              <h2>Date Available From</h2>
+            </div>
+            <div class="date_to">
+              <h2>Date Available To</h2>
+            </div>
+            <div id="container">
+              <div>
+                <h1>Get in touch</h1>
+                <input id="to" type="text">
+                <input id="subject" type="text" placeholder="Subject">
+                <textarea id="content" cols="40" rows="5" placeholder="Message"></textarea>
+                <button id="send_email">Send email</button>
+                <span id="message"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- end of edit user profile -->
+    <!-- start home signup -->
+    <section id="home-signup">
+      <div class="padding-div">
+        <div class="ui grid">
+          <div class="six wide column centered">
+            <h1 class="text-center">Add your home</h1>
+            <form class="ui form add-home" action="/api/homes" method="post" enctype="multipart/form-data">
+              <div class="field add-home-type">
+                <label>Type of home</label>
+                <input type="text" name="type" placeholder="Type of home">
+              </div>
+              <div class="field add-home-image">
+                <label>Image</label>
+                <input type="file" name="image">
+              </div>
+              <div class="field add-home-description">
+                <label>Description And Responsibilities</label>
+                <input type="text" name="description" placeholder="Description And Responsibilities">
+              </div>
+              <div class="field add-home-address">
+                <label>Address</label>
+                <input type="text" name="address" placeholder="Address">
+              </div>
+              <div class="field add-home-postcode">
+                <label>Postcode</label>
+                <input type="text" name="postcode" placeholder="Postcode">
+              </div>
+              <div class="field add-home-date-from">
+                <label>Date From</label>
+                <input type="date" name="date_from" placeholder="Date From">
+              </div>
+              <div class="field add-home-date-to">
+                <label>Date To</label>
+                <input type="date" name="date_to" placeholder="Date To">
+              </div>
+              <div class="field">
+                <label>Pets</label>
+                <select multiple="" class="ui dropdown">
+                  <option value="">Select Country</option>
+                  <option value="dog">Dog</option>
+                  <option value="cat">Cat</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="field submit">
+                <input class="ui button" type="submit" value="Add home">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- end home signup -->
+    <!-- start home edit -->
+    <section id="home-edit">
+      <div class="padding-div">
+        <div class="ui grid">
+          <div class="six wide column centered">
+            <h1 class="text-center">Edit your home details</h1>
+            <form class="ui form edit-home" action="/api/homes/:id" method="POST">
+              <input type="hidden" name="_method" value="PUT">
+              <div class="field edit-home-type">
+                <label for="type">Type of home</label>
+                <input type="text" name="type" placeholder="Type of home">
+              </div>
+<!--               <div class="field edit-home-image">
+                <label for="home_image">Image</label>
+                <input type="file" name="home_image">
+              </div> -->
+              <div class="field edit-home-description">
+                <label for="description">Description And Responsibilities</label>
+                <input type="text" name="description" placeholder="Description And Responsibilities">
+              </div>
+              <div class="field edit-home-postcode">
+                <label for="postcode">Postcode</label>
+                <input type="text" name="postcode" placeholder="Postcode">
+              </div>
+              <div class="field edit-home-date-from">
+                <label for="date_from">Date From</label>
+                <input type="date" name="date_from" placeholder="Date From">
+              </div>
+              <div class="field edit-home-date-to">
+                <label for="date_to">Date To</label>
+                <input type="date" name="date_to" placeholder="Date To">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- end home edit -->
+    <!-- Footer -->
+    <footer id="footer-segment">
+      <div class="ui inverted vertical footer segment">
+        <div class="ui container">
+          <div class="ui stackable inverted divided equal height stackable grid">
+            <div class="three wide column">
+              <h4 class="ui inverted header">About</h4>
+              <div class="ui inverted link list">
+                <a href="/" class="item" data-name="sitemap">Sitemap</a>
+                <a href="/" class="item" data-name="contact-us">Contact Us</a>
+                <a href="/" class="item" data-name="terms-and-conditions">Terms &amp; Conditions</a>
+                <a href="/" class="item" data-name="privacy-policy">Privacy Policy</a>
+              </div>
+            </div>
+            <div class="three wide column">
+              <h4 class="ui inverted header">Pet Sitters</h4>
+              <div class="ui inverted link list">
+                <a href="/" class="item" data-name="find-a-sitter">Find a sitter</a>
+                <a href="/" class="item" data-name="find-a-house-sit">Find a house sit</a>
+              </div>
+            </div>
+            <div class="seven wide column">
+              <p>© Pet Sitters 2015</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End of Footer -->
+  </div>
+  <script type="text/javascript">
+    $('select.dropdown')
+      .dropdown()
+    ;
+  </script>
+</body>
+</html>
