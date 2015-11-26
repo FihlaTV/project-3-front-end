@@ -10,11 +10,6 @@ function init(){
 
 	$( "body" ).find('form').on('submit', submitForm);
 
-  $( "body" ).find('a#forgot-password').on('click', function(){
-    $('section').hide();
-    $('section#forgot-password').show();
-  });
-
 	$( "nav" ).find('#logout').on('click', function(){
 		logout();
 	});
@@ -278,14 +273,14 @@ function displayHomes() {
         if(user.local.home.length > 0 ) {
   	    	var image_url = "https://s3-eu-west-1.amazonaws.com/wdi16-project-3/" + user.local.home[0].home_image
   	      if((user.local.home[0].address.search(myExp) != -1) || (user.local.home[0].postcode.search(myExp) != -1)) {
-  	        output +='<div class="card">';
+  	        output +='<div class="card" id="' + user.local.home[0]._id + '">';
             output +='<div class="image">';
   	        output +='<img src="' + image_url + '" />';
             output +='</div>';
             output +='<div class="content">';
             output +='<div class="header">' + user.local.home[0].address + '</div>';
   	        output +='<div class="meta">' + user.local.home[0].postcode + '</div>';
-  	        output +='<div class="description">' + user.local.home[0].description + '</div>';
+            output +='<div class="description">' + user.local.home[0].description + '</div>';
             output +='</div>'
   	        output +='</div>';
           }
@@ -294,8 +289,36 @@ function displayHomes() {
 	    output += '</div>';
 	    $('#update').html(output);
       if($('#search').val() === "") $('#update').empty();
+
+      $(document).on('click', '.card', function () {
+        displayHome(this.id);
+      });
 	  });
 	});
+}
+
+
+function displayHome(id){
+  ajaxRequest("get", "http://localhost:3000/users", false, function(data){
+    $.each(data.users, function(i, user){
+      if((user.local.home.length > 0) && id === user.local.home[0]._id){
+        var image_url = "https://s3-eu-west-1.amazonaws.com/wdi16-project-3/" + user.local.home[0].home_image;
+        $('section').hide();
+        $('section#show-home-profile').show();
+        $('.home-type').html(user.local.home[0].type);
+        $('.home-image').html('<img width="250px" src="' + image_url + '" />');
+        $('.description').html(user.local.home[0].description);
+        $('.address').html(user.local.home[0].address);
+        $('.postcode').html(user.local.home[0].postcode);
+        $.each(user.local.home[0].pets, function(i, pet){
+          $('.pets').append(pet)
+        });
+        $('.date_from').html(user.local.home[0].date_from);
+        $('.date_to').html(user.local.home[0].date_to);
+        $('#to').val(user.local.email);
+      }
+    });
+  });
 }
 
 function displayIndex(){
