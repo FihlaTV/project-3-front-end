@@ -21,7 +21,7 @@ function init(){
     subject=$("#subject").val();
     text=$("#content").val();
     $("#message").text("Sending E-mail...Please wait");
-    $.get("http://localhost:3000/send",{to:to,subject:subject,text:text},function(data){
+    $.get("https://thawing-escarpment-4012.herokuapp.com/send",{to:to,subject:subject,text:text},function(data){
       console.log(data);
       if(data=="sent")
       {
@@ -194,7 +194,7 @@ function init(){
 // }
 
 function getUserEmail(){
-  ajaxRequest("get", "http://localhost:3000/users/info", false, function(data){
+  ajaxRequest("get", "https://thawing-escarpment-4012.herokuapp.com/users/info", false, function(data){
     return populateEmail(data.user);
   });
 }
@@ -212,7 +212,7 @@ function loggedInState(){
   console.log("logged in");
   $('div#logged-out').hide();
   $('div#logged-in').show();
-  ajaxRequest("get", "http://localhost:3000/users/info", false, function(data){
+  ajaxRequest("get", "https://thawing-escarpment-4012.herokuapp.com/users/info", false, function(data){
     console.log(data);
     if(data.user.local.home.length > 0) {
       $('a#edit-home').show();
@@ -235,7 +235,7 @@ function submitForm(){
 	event.preventDefault();
 	var $form = $(this)
 	var method = $form.attr('method');
-	var url = "http://localhost:3000" + $form.attr('action');
+	var url = "https://thawing-escarpment-4012.herokuapp.com" + $form.attr('action');
 	var isFileUpload = $form.attr("enctype") === 'multipart/form-data';
 	var data = $form.serialize();
 
@@ -268,7 +268,7 @@ function submitForm(){
 }
 
 function getUserDetails(){
-	ajaxRequest("get", "http://localhost:3000/users/info", false, function(data){
+	ajaxRequest("get", "https://thawing-escarpment-4012.herokuapp.com/users/info", false, function(data){
     console.log(data);
     $("#profile-username").text(data.user.local.first_name + " " + data.user.local.last_name);
     $("#show-user-pic").html('<img width="250px" src="' + data.user.local.image_url + '" />');
@@ -278,7 +278,7 @@ function getUserDetails(){
 }
 
 function populateInputs(){
-  ajaxRequest("get", "http://localhost:3000/users/info", false, function(data){
+  ajaxRequest("get", "https://thawing-escarpment-4012.herokuapp.com/users/info", false, function(data){
     console.log(data);
     $("#edit-user-id").val(data.user._id);
     $("#edit-user-first-name").val(data.user.local.first_name);
@@ -333,7 +333,7 @@ function displayHomes() {
 
 
 function displayHome(id){
-  ajaxRequest("get", "http://localhost:3000/users", false, function(data){
+  ajaxRequest("get", "https://thawing-escarpment-4012.herokuapp.com/users", false, function(data){
     $.each(data.users, function(i, user){
       if((user.local.home.length > 0) && id === user.local.home[0]._id){
         var image_url = "https://s3-eu-west-1.amazonaws.com/wdi16-project-3/" + user.local.home[0].home_image;
