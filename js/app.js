@@ -37,9 +37,9 @@ function init(){
     if(e.target != e.currentTarget){
       e.preventDefault();
       if(e.target.getAttribute('data-name') === 'home-page'){
-        var data = e.target.getAttribute('data-name'), url = '/';
+        var data = e.target.getAttribute('data-name'), url = 'project-3-front-end/';
       } else {
-        var data = e.target.getAttribute('data-name'), url = data;
+        var data = e.target.getAttribute('data-name'), url = 'project-3-front-end/' + data;
       } 
       history.pushState(data, null, url);
 
@@ -97,6 +97,7 @@ function init(){
       		document.title = "Edit A Home | Pet Sitters";
       		$('section').hide();
       		$('section#' + page).show();
+          populateHomeInputs();
       		break;
       }
     }
@@ -213,7 +214,6 @@ function loggedInState(){
   $('div#logged-out').hide();
   $('div#logged-in').show();
   ajaxRequest("get", "https://thawing-escarpment-4012.herokuapp.com/users/info", false, function(data){
-    console.log(data);
     if(data.user.local.home.length > 0) {
       $('a#edit-home').show();
       $('a#add-home').hide();
@@ -243,33 +243,32 @@ function submitForm(){
 		data = new FormData($form[0]);
 	};
 
-	if($(this).attr('action') === '/signup') {
+	if(($form.attr('action') === '/signup') && authenticationSuccessful(data)) {
 		$('section').hide();
 		$('section#edit-user').show();
 	}
 
-	else if($(this).attr('action') === '/login') {
+	else if(($form.attr('action') === '/login') && authenticationSuccessful(data)) {
 		$('section').hide();
 		$('section#user-profile').show();
 	}
 
-  else if($(this).attr('action') === '/api/homes') {
+  else if($form.attr('action') === '/api/homes') {
     $('section').hide();
     $('section#homes').show();
   }
 
-  else if($(this).attr('action') === '/users/:id') {
+  else if($form.attr('action') === '/users/:id') {
     $('section').hide();
     $('section#user-profile').show();
   }
 
-  $(this).trigger("reset");
+  $form.trigger("reset");
 	return ajaxRequest(method, url, data, authenticationSuccessful, isFileUpload);
 }
 
 function getUserDetails(){
 	ajaxRequest("get", "https://thawing-escarpment-4012.herokuapp.com/users/info", false, function(data){
-    console.log(data);
     $("#profile-username").text(data.user.local.first_name + " " + data.user.local.last_name);
     $("#show-user-pic").html('<img width="250px" src="' + data.user.local.image_url + '" />');
 		$("#show-user-bio").html(data.user.local.bio);
@@ -279,10 +278,18 @@ function getUserDetails(){
 
 function populateInputs(){
   ajaxRequest("get", "https://thawing-escarpment-4012.herokuapp.com/users/info", false, function(data){
-    console.log(data);
     $("#edit-user-id").val(data.user._id);
     $("#edit-user-first-name").val(data.user.local.first_name);
     $("#edit-user-last-name").val(data.user.local.last_name);
+    return;
+  });
+}
+
+function populateHomeInputs(){
+  ajaxRequest("get", "https://thawing-escarpment-4012.herokuapp.com/users/info", false, function(data){
+    $("#home-type").val(data.user.local.home[0].type);
+    $("#home-description").val(data.user.local.home[0].description);
+    $("#home-postcode").val(data.user.local.home[0].postcode);
     return;
   });
 }
@@ -301,7 +308,7 @@ function displayHomes() {
 	$('#search').keyup(function(){
 	  var searchField = $('#search').val();
 	  var myExp = new RegExp(searchField, 'i');
-	  ajaxRequest("get", "http://localhost:3000/users", false, function(data){
+	  ajaxRequest("get", "https://thawing-escarpment-4012.herokuapp.com/users", false, function(data){
 	    var output = '<div class="ui link cards">';
 	    $.each(data.users, function(i, user){
         if(user.local.home.length > 0 ) {

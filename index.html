@@ -46,7 +46,6 @@
               Pet Sitters
             </h1>
             <h2>Find a house to sit or find a sitter.</h2>
-            <!-- <a href="#" id="get-started" data-name="homes"><div class="ui huge primary button">Get Started <i class="right arrow icon"></i></div></a> -->
           </div>
         </div>
         <!-- End of Home Page Jumbo -->
@@ -183,8 +182,8 @@
         <div class="ui grid">
           <div class="six wide column centered">
             <h1 class="text-center">Your account details</h1>
-            <form class="ui form edit-user" action="/users/:id" method="POST">
-              <input type="hidden" name="_method" value="PUT">
+            <form class="ui form edit-user" action="/users/:id" method="PUT">
+     <!--          <input type="hidden" name="_method" value="PUT"> -->
               <div class="field edit-user-first-name">
                 <label for="edit-user-first-name">First name</label>
                 <input type="text" name="first_name" id="edit-user-first-name">
@@ -213,10 +212,10 @@
                 <label for="edit-user-bio">About Me</label>
                 <input type="text" name="bio" id="edit-user-bio">
               </div>
-<!--               <div class="field edit-user-profile-image">
+              <div class="field edit-user-profile-image">
                 <label for="edit-user-profile-image">Image Upload</label>
                 <input type="file" name="profile-image" id="edit-user-profile-image">
-              </div> -->
+              </div>
               <select class="field edit-user-is-homeowner">
                 <option name="is_homeowner" id="edit-user-is-homeowner" value="true">Homeowner</option>
                 <option name="is_homeowner" id="edit-user-is-homeowner" value="false">Pet sitter</option>
@@ -241,7 +240,6 @@
             <div class="spacer"></div>
             <h2>Images</h2>
             <div class="home-image">            
-              <img height="300">
             </div>
             <div class="spacer"></div>
             <h2>Description And Responsibilities</h2>
@@ -256,8 +254,8 @@
             <div class="postcode">
             </div>
             <div class="spacer"></div>
-            <div id="map" style="width:350px;height:350px"></div>
-            <div class="spacer"></div>
+<!--             <div id="map" style="width:350px;height:350px"></div>
+            <div class="spacer"></div> -->
             <h2>Pet/s</h2>
             <div class="pets">
             </div>
@@ -326,10 +324,10 @@
               </div>
               <div class="field">
                 <label>Pets</label>
-                <select multiple="" class="ui dropdown">
-                  <option value="">Select Country</option>
-                  <option value="dog">Dog</option>
-                  <option value="cat">Cat</option>
+                <select name="pets" multiple class="ui dropdown">
+                  <option value="">Select pets</option>
+                  <option value="dogs">Dog(s)</option>
+                  <option value="cats">Cat(s)</option>
                   <option value="other">Other</option>
                 </select>
               </div>
@@ -348,27 +346,40 @@
         <div class="ui grid">
           <div class="six wide column centered">
             <h1 class="text-center">Edit your home details</h1>
-            <form class="ui form edit-home" action="/api/homes/:id" method="POST">
-              <input type="hidden" name="_method" value="PUT">
+            <form class="ui form edit-home" action="/api/homes/:id" method="PUT" enctype="multipart/form-data">
+             <!--  <input type="hidden" name="_method" value="PUT"> -->
               <div class="field edit-home-type">
                 <label for="type">Type of home</label>
-                <input type="text" name="type" placeholder="Type of home">
+                <input type="text" name="type" id="home-type" placeholder="Type of home">
               </div>
               <div class="field edit-home-description">
                 <label for="description">Description And Responsibilities</label>
-                <input type="text" name="description" placeholder="Description And Responsibilities">
+                <input type="text" name="description" id="home-description" placeholder="Description And Responsibilities">
               </div>
               <div class="field edit-home-postcode">
                 <label for="postcode">Postcode</label>
-                <input type="text" name="postcode" placeholder="Postcode">
+                <input type="text" name="postcode" id="home-postcode" placeholder="Postcode">
+              </div>
+              <div class="field add-home-image">
+                <label for="image">Image</label>
+                <input type="file" name="image">
               </div>
               <div class="field edit-home-date-from">
                 <label for="date_from">Date From</label>
-                <input type="date" name="date_from" placeholder="Date From">
+                <input type="date" id="home-date-from" name="date_from" placeholder="Date From">
               </div>
               <div class="field edit-home-date-to">
                 <label for="date_to">Date To</label>
-                <input type="date" name="date_to" placeholder="Date To">
+                <input type="date" id="home-date-to" name="date_to" placeholder="Date To">
+              </div>
+              <div class="field">
+                <label>Pets</label>
+                <select name="pets" id="home-pets" multiple class="ui dropdown">
+                  <option value="">Select pets</option>
+                  <option value="dogs">Dog(s)</option>
+                  <option value="cats">Cat(s)</option>
+                  <option value="other">Other</option>
+                </select>
               </div>
               <div class="field">
                 <input class="ui button" type="submit" value="Save changes">
