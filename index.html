@@ -182,7 +182,8 @@
         <div class="ui grid">
           <div class="six wide column centered">
             <h1 class="text-center">Your account details</h1>
-            <form class="ui form edit-user" action="/users/:id" method="PUT">
+            <form class="ui form edit-user" action="/users" method="PUT">
+              <input type="hidden" name="_id">
      <!--          <input type="hidden" name="_method" value="PUT"> -->
               <div class="field edit-user-first-name">
                 <label for="edit-user-first-name">First name</label>
@@ -346,8 +347,8 @@
         <div class="ui grid">
           <div class="six wide column centered">
             <h1 class="text-center">Edit your home details</h1>
-            <form class="ui form edit-home" action="/api/homes/:id" method="PUT" enctype="multipart/form-data">
-             <!--  <input type="hidden" name="_method" value="PUT"> -->
+            <form class="ui form edit-home" action="/api/homes" method="PUT" enctype="multipart/form-data">
+              <input type="hidden" name="_id">
               <div class="field edit-home-type">
                 <label for="type">Type of home</label>
                 <input type="text" name="type" id="home-type" placeholder="Type of home">

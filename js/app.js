@@ -236,6 +236,7 @@ function submitForm(){
 	var $form = $(this)
 	var method = $form.attr('method');
 	var url = "https://thawing-escarpment-4012.herokuapp.com" + $form.attr('action');
+  if($form.find('[name=_id]').length > 0) { url += '/' + $form.find('[name=_id]').val(); }
 	var isFileUpload = $form.attr("enctype") === 'multipart/form-data';
 	var data = $form.serialize();
 
@@ -263,6 +264,11 @@ function submitForm(){
     $('section#user-profile').show();
   }
 
+  else if($form.attr('action') === '/api/homes/:id') {
+    $('section').hide();
+    $('section#homes').show();
+  }
+
   $form.trigger("reset");
 	return ajaxRequest(method, url, data, authenticationSuccessful, isFileUpload);
 }
@@ -278,7 +284,7 @@ function getUserDetails(){
 
 function populateInputs(){
   ajaxRequest("get", "https://thawing-escarpment-4012.herokuapp.com/users/info", false, function(data){
-    $("#edit-user-id").val(data.user._id);
+    $("form.edit-user [name=_id]").val(data.user._id);
     $("#edit-user-first-name").val(data.user.local.first_name);
     $("#edit-user-last-name").val(data.user.local.last_name);
     return;
@@ -287,6 +293,7 @@ function populateInputs(){
 
 function populateHomeInputs(){
   ajaxRequest("get", "https://thawing-escarpment-4012.herokuapp.com/users/info", false, function(data){
+    $("form.edit-home [name=_id]").val(data.user.local.home[0]._id);
     $("#home-type").val(data.user.local.home[0].type);
     $("#home-description").val(data.user.local.home[0].description);
     $("#home-postcode").val(data.user.local.home[0].postcode);
