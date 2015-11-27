@@ -8,9 +8,9 @@ function init(){
 	$('section').hide();
 	$('section#home-page').show();
 
-	$( "body" ).find('form').on('submit', submitForm);
+	$('body').find('form').on('submit', submitForm);
 
-	$( "nav" ).find('#logout').on('click', function(){
+	$('nav').find('#logout').on('click', function(){
 		logout();
 	});
 
@@ -132,7 +132,7 @@ function init(){
         document.title = "Profile | Pet Sitters";
         $('section').hide();
         $('section#' + page).show();
-        getUserDetails()
+        getUserDetails();
         break;
     	case 'show-user':
     		document.title = "User Profile | Pet Sitters";
@@ -162,7 +162,36 @@ function init(){
     		break;
     }
   });
+
+  // // INIT GOOGLEMAPS HERE
+  // initMap();
+
 }
+
+// function initMap() {
+
+//   // find user's post code
+//   var postCode = $('section#show-home-profile div.meta').text().replace('Post code: ', '');
+//   // get lat lng from post code
+//   var geocoder = new google.maps.Geocoder();
+
+//   geocoder.geocode({ address: postCode }, function(res, status) {
+//     var location = res[0].geometry.location;
+//       // init map
+//     var mapElement = $('#map')[0];
+//     var map = new google.maps.Map(mapElement, {
+//       center: location,
+//       zoom: 12
+//     });
+
+//     // place marker
+//     var marker = new google.maps.Marker({
+//       position: location,
+//       map: map,
+//       animation: google.maps.Animation.DROP
+//     });
+//   });
+// }
 
 function getUserEmail(){
   ajaxRequest("get", "http://localhost:3000/users/info", false, function(data){
@@ -227,6 +256,11 @@ function submitForm(){
   else if($(this).attr('action') === '/api/homes') {
     $('section').hide();
     $('section#homes').show();
+  }
+
+  else if($(this).attr('action') === '/users/:id') {
+    $('section').hide();
+    $('section#user-profile').show();
   }
 
   $(this).trigger("reset");

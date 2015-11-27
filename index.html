@@ -10,6 +10,7 @@
   <link rel="stylesheet" type="text/css" href="./css/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYQiueylWTJzmt1Rg3awoku9g6h5jYpS0"></script>
   <script src="/js/app.js"></script>
 </head>
 <body>
@@ -45,7 +46,7 @@
               Pet Sitters
             </h1>
             <h2>Find a house to sit or find a sitter.</h2>
-            <div class="ui huge primary button">Get Started <i class="right arrow icon"></i></div>
+            <!-- <a href="#" id="get-started" data-name="homes"><div class="ui huge primary button">Get Started <i class="right arrow icon"></i></div></a> -->
           </div>
         </div>
         <!-- End of Home Page Jumbo -->
@@ -255,6 +256,8 @@
             <div class="postcode">
             </div>
             <div class="spacer"></div>
+            <div id="map" style="width:350px;height:350px"></div>
+            <div class="spacer"></div>
             <h2>Pet/s</h2>
             <div class="pets">
             </div>
@@ -351,10 +354,6 @@
                 <label for="type">Type of home</label>
                 <input type="text" name="type" placeholder="Type of home">
               </div>
-<!--               <div class="field edit-home-image">
-                <label for="home_image">Image</label>
-                <input type="file" name="home_image">
-              </div> -->
               <div class="field edit-home-description">
                 <label for="description">Description And Responsibilities</label>
                 <input type="text" name="description" placeholder="Description And Responsibilities">
@@ -370,6 +369,9 @@
               <div class="field edit-home-date-to">
                 <label for="date_to">Date To</label>
                 <input type="date" name="date_to" placeholder="Date To">
+              </div>
+              <div class="field">
+                <input class="ui button" type="submit" value="Save changes">
               </div>
             </form>
           </div>
