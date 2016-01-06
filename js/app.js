@@ -38,6 +38,8 @@ function init(){
       e.preventDefault();
       if(e.target.getAttribute('data-name') === 'home-page'){
         var data = e.target.getAttribute('data-name'), url = '/';
+      } else if(e.target.getAttribute('data-name') == null) {
+        var data = e.target.getAttribute('data-name'), url = '/';
       } else {
         var data = e.target.getAttribute('data-name'), url = '/' + data;
       }
@@ -244,12 +246,14 @@ function submitForm(){
 		data = new FormData($form[0]);
 	};
 
-	if(($form.attr('action') === '/signup') && authenticationSuccessful(data)) {
+	if(($form.attr('action') === '/signup' )) {
+ 
 		$('section').hide();
-		$('section#edit-user').show();
+		$('section#user-profile').show();
 	}
 
-	else if(($form.attr('action') === '/login') && authenticationSuccessful(data)) {
+	else if(($form.attr('action') === '/login')) {
+    console.log($form.attr('action'))
 		$('section').hide();
 		$('section#user-profile').show();
 	}
