@@ -235,7 +235,7 @@ function submitForm(){
 	event.preventDefault();
 	var $form = $(this)
 	var method = $form.attr('method');
-	var url = "https://thawing-escarpment-4012.herokuapp.com" + $form.attr('action');
+	var url = "https://project-3-api.herokuapp.com" + $form.attr('action');
   if($form.find('[name=_id]').length > 0) { url += '/' + $form.find('[name=_id]').val(); }
 	var isFileUpload = $form.attr("enctype") === 'multipart/form-data';
 	var data = $form.serialize();
