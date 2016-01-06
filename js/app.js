@@ -164,36 +164,6 @@ function init(){
     }
   });
 
-  // // INIT GOOGLEMAPS HERE
-  // initMap();
-
-}
-
-// function initMap() {
-
-//   // find user's post code
-//   var postCode = $('section#show-home-profile div.meta').text().replace('Post code: ', '');
-//   // get lat lng from post code
-//   var geocoder = new google.maps.Geocoder();
-
-//   geocoder.geocode({ address: postCode }, function(res, status) {
-//     var location = res[0].geometry.location;
-//       // init map
-//     var mapElement = $('#map')[0];
-//     var map = new google.maps.Map(mapElement, {
-//       center: location,
-//       zoom: 12
-//     });
-
-//     // place marker
-//     var marker = new google.maps.Marker({
-//       position: location,
-//       map: map,
-//       animation: google.maps.Animation.DROP
-//     });
-//   });
-// }
-
 function getUserEmail(){
   ajaxRequest("get", "http://project-3-api.herokuapp.com/users/info", false, function(data){
     return populateEmail(data.user);
