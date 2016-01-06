@@ -15,13 +15,13 @@ function init(){
 	});
 
   var from,to,subject,text;
-  
-  $("#send_email").click(function() {      
+
+  $("#send_email").click(function() {
     to=$("#to").val();
     subject=$("#subject").val();
     text=$("#content").val();
     $("#message").text("Sending E-mail...Please wait");
-    $.get("https://thawing-escarpment-4012.herokuapp.com/send",{to:to,subject:subject,text:text},function(data){
+    $.get("https://project-3-api.herokuapp.com/send",{to:to,subject:subject,text:text},function(data){
       console.log(data);
       if(data=="sent")
       {
@@ -40,7 +40,7 @@ function init(){
         var data = e.target.getAttribute('data-name'), url = 'project-3-front-end/';
       } else {
         var data = e.target.getAttribute('data-name'), url = 'project-3-front-end/' + data;
-      } 
+      }
       history.pushState(data, null, url);
 
       var page = data;
@@ -195,7 +195,7 @@ function init(){
 // }
 
 function getUserEmail(){
-  ajaxRequest("get", "https://thawing-escarpment-4012.herokuapp.com/users/info", false, function(data){
+  ajaxRequest("get", "https://project-3-api.herokuapp.com/users/info", false, function(data){
     return populateEmail(data.user);
   });
 }
@@ -213,7 +213,7 @@ function loggedInState(){
   console.log("logged in");
   $('div#logged-out').hide();
   $('div#logged-in').show();
-  ajaxRequest("get", "https://thawing-escarpment-4012.herokuapp.com/users/info", false, function(data){
+  ajaxRequest("get", "https://project-3-api.herokuapp.com/users/info", false, function(data){
     if(data.user.local.home.length > 0) {
       $('a#edit-home').show();
       $('a#add-home').hide();
@@ -274,7 +274,7 @@ function submitForm(){
 }
 
 function getUserDetails(){
-	ajaxRequest("get", "https://thawing-escarpment-4012.herokuapp.com/users/info", false, function(data){
+	ajaxRequest("get", "https://project-3-api.herokuapp.com/users/info", false, function(data){
     $("#profile-username").text(data.user.local.first_name + " " + data.user.local.last_name);
     $("#show-user-pic").html('<img width="250px" src="' + data.user.local.image_url + '" />');
 		$("#show-user-bio").html(data.user.local.bio);
@@ -283,7 +283,7 @@ function getUserDetails(){
 }
 
 function populateInputs(){
-  ajaxRequest("get", "https://thawing-escarpment-4012.herokuapp.com/users/info", false, function(data){
+  ajaxRequest("get", "https://project-3-api.herokuapp.com/users/info", false, function(data){
     $("form.edit-user [name=_id]").val(data.user._id);
     $("#edit-user-first-name").val(data.user.local.first_name);
     $("#edit-user-last-name").val(data.user.local.last_name);
@@ -292,7 +292,7 @@ function populateInputs(){
 }
 
 function populateHomeInputs(){
-  ajaxRequest("get", "https://thawing-escarpment-4012.herokuapp.com/users/info", false, function(data){
+  ajaxRequest("get", "https://project-3-api.herokuapp.com/users/info", false, function(data){
     $("form.edit-home [name=_id]").val(data.user.local.home[0]._id);
     $("#home-type").val(data.user.local.home[0].type);
     $("#home-description").val(data.user.local.home[0].description);
@@ -306,7 +306,7 @@ function users(){
 	return getUsers();
 }
 
-function logout(){	
+function logout(){
 	removeToken();
 	return loggedOutState();
 }
@@ -315,7 +315,7 @@ function displayHomes() {
 	$('#search').keyup(function(){
 	  var searchField = $('#search').val();
 	  var myExp = new RegExp(searchField, 'i');
-	  ajaxRequest("get", "https://thawing-escarpment-4012.herokuapp.com/users", false, function(data){
+	  ajaxRequest("get", "https://project-3-api.herokuapp.com/users", false, function(data){
 	    var output = '<div class="ui link cards">';
 	    $.each(data.users, function(i, user){
         if(user.local.home.length > 0 ) {
@@ -347,7 +347,7 @@ function displayHomes() {
 
 
 function displayHome(id){
-  ajaxRequest("get", "https://thawing-escarpment-4012.herokuapp.com/users", false, function(data){
+  ajaxRequest("get", "https://project-3-api.herokuapp.com/users", false, function(data){
     $.each(data.users, function(i, user){
       if((user.local.home.length > 0) && id === user.local.home[0]._id){
         var image_url = "https://s3-eu-west-1.amazonaws.com/wdi16-project-3/" + user.local.home[0].home_image;
