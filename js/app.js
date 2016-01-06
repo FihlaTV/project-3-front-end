@@ -22,7 +22,6 @@ function init(){
     text=$("#content").val();
     $("#message").text("Sending E-mail...Please wait");
     $.get("http://project-3-api.herokuapp.com/send",{to:to,subject:subject,text:text},function(data){
-      console.log(data);
       if(data=="sent")
       {
         return $("#message").empty().html("Email is been sent at "+to+" . Please check inbox !");
@@ -243,13 +242,9 @@ function submitForm(){
 	return ajaxRequest(method, url, data, authenticationSuccessful, isFileUpload);
 }
 
-
-
 function getUserDetails(){
 	ajaxRequest("get", "http://project-3-api.herokuapp.com/users/info", false, function(data){
-		console.log(data);
     $("#profile-username").text(data.user.local.first_name + " " + data.user.local.last_name);
-    $("#show-user-pic").html('<img width="250px" src="' + data.user.local.image_url + '" />');
 		$("#show-user-bio").html(data.user.local.bio);
     return data;
 	});
@@ -260,6 +255,11 @@ function populateInputs(){
     $("form.edit-user [name=_id]").val(data.user._id);
     $("#edit-user-first-name").val(data.user.local.first_name);
     $("#edit-user-last-name").val(data.user.local.last_name);
+    $("#edit-user-street-address").val(data.user.local.street_address);
+    $("#edit-user-postcode").val(data.user.local.postcode);
+    $("#edit-user-country").val(data.user.local.country);
+    $("#edit-user-bio").val(data.user.local.bio);
+    $("#edit-user-profile-image").val(data.user.local.profile_image);
     return;
   });
 }
@@ -333,7 +333,7 @@ function displayHome(id){
         $('.address').html(user.local.home[0].address);
         $('.postcode').html(user.local.home[0].postcode);
         $.each(user.local.home[0].pets, function(i, pet){
-          $('.pets').append(pet)
+          $('.pets').html(pet)
         });
         $('.date_from').html(user.local.home[0].date_from);
         $('.date_to').html(user.local.home[0].date_to);
@@ -396,4 +396,6 @@ function ajaxRequest(method, url, data, callback, isFileUpload) {
 	.fail(function(data){
 		console.log(data.responseJSON.message);
 	});
+}
+
 }
