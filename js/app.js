@@ -1,18 +1,5 @@
 $(init);
 
-function setPageState(page) {
-  if(page === 'user-profile') getUserDetails();
-  if(page === 'edit-user') populateInputs();
-  if(page === 'home-edit') populateHomeInputs();
-
-  document.title = $page.split('-').map(function(elem) {
-    return elem[0].toUpperCase() + elem.substr(1);
-  }).join(" ") + " | Pet Sitters";
-
-  $('section').hide();
-  $('section#' + page).show();
-}
-
 function init(){
 
 	displayHomes();
@@ -44,25 +31,137 @@ function init(){
     });
   });
 
-	var $navLinks = $('nav a');
+	var nav = document.querySelector('nav')
 
-	$navLinks.on('click', function(e){
+	nav.addEventListener('click', function(e){
+    if(e.target != e.currentTarget){
+      e.preventDefault();
+      if(e.target.getAttribute('data-name') === 'home-page'){
+        var data = e.target.getAttribute('data-name'), url = 'project-3-front-end/';
+      } else {
+        var data = e.target.getAttribute('data-name'), url = 'project-3-front-end/' + data;
+      }
+      history.pushState(data, null, url);
 
-    e.preventDefault();
+      var page = data;
 
-    var page = $(this).data('name');
-    var url = page === 'home-page' ? '/' : page;
-    history.pushState(page, null, url);
-
-    setPageState(page);
+      switch(page) {
+      	case 'home-page':
+      		document.title = "Home | Pet Sitters";
+      		$('section').hide();
+      		$('section#' + page).show();
+      		break;
+      	case 'homes':
+      		document.title = "Find A House Sit | Pet Sitters";
+      		$('section').hide();
+      		$('section#' + page).show();
+      		break;
+      	case 'sign-up':
+      		document.title = "Sign Up | Pet Sitters";
+      		$('section').hide();
+      		$('section#' + page).show();
+      		break;
+      	case 'login':
+      		document.title = "Login | Pet Sitters";
+      		$('section').hide();
+      		$('section#' + page).show();
+      		break;
+        case 'user-profile':
+          document.title = "Profile | Pet Sitters";
+          $('section').hide();
+          $('section#' + page).show();
+          getUserDetails()
+          break;
+      	case 'show-user':
+      		document.title = "User Profile | Pet Sitters";
+      		$('section').hide();
+      		$('section#' + page).show();
+      		break;
+      	case 'edit-user':
+      		document.title = "Edit Profile | Pet Sitters";
+      		$('section').hide();
+      		$('section#' + page).show();
+          populateInputs();
+      		break;
+      	case 'show-home-profile':
+      		document.title = "Home Profile | Pet Sitters";
+      		$('section').hide();
+      		$('section#' + page).show();
+      		break;
+      	case 'home-signup':
+      		document.title = "Add A Home | Pet Sitters";
+      		$('section').hide();
+      		$('section#' + page).show();
+      		break;
+      	case 'home-edit':
+      		document.title = "Edit A Home | Pet Sitters";
+      		$('section').hide();
+      		$('section#' + page).show();
+          populateHomeInputs();
+      		break;
+      }
+    }
     e.stopPropagation();
   }, false);
 
-	$(window).on('popstate', function(e){
+	window.addEventListener('popstate', function(e){
 
     var page = e.state;
-    setPageState(page);
 
+    switch(page) {
+    	case 'home-page':
+    		document.title = "Home | Pet Sitters";
+    		$('section').hide();
+    		$('section#' + page).show();
+    		break;
+    	case 'homes':
+    		document.title = "Find A House Sit | Pet Sitters";
+    		$('section').hide();
+    		$('section#' + page).show();
+    		break;
+    	case 'sign-up':
+    		document.title = "Sign Up | Pet Sitters";
+    		$('section').hide();
+    		$('section#' + page).show();
+    		break;
+    	case 'login':
+    		document.title = "Login | Pet Sitters";
+    		$('section').hide();
+    		$('section#' + page).show();
+    		break;
+      case 'user-profile':
+        document.title = "Profile | Pet Sitters";
+        $('section').hide();
+        $('section#' + page).show();
+        getUserDetails();
+        break;
+    	case 'show-user':
+    		document.title = "User Profile | Pet Sitters";
+    		$('section').hide();
+    		$('section#' + page).show();
+    		break;
+    	case 'edit-user':
+    		document.title = "Edit Profile | Pet Sitters";
+    		$('section').hide();
+    		$('section#' + page).show();
+        populateInputs();
+    		break;
+    	case 'show-home-profile':
+    		document.title = "Home Profile | Pet Sitters";
+    		$('section').hide();
+    		$('section#' + page).show();
+    		break;
+    	case 'home-signup':
+    		document.title = "Add A Home | Pet Sitters";
+    		$('section').hide();
+    		$('section#' + page).show();
+    		break;
+    	case 'home-edit':
+    		document.title = "Edit A Home | Pet Sitters";
+    		$('section').hide();
+    		$('section#' + page).show();
+    		break;
+    }
   });
 
   // // INIT GOOGLEMAPS HERE
@@ -177,7 +276,7 @@ function submitForm(){
 function getUserDetails(){
 	ajaxRequest("get", "https://project-3-api.herokuapp.com/users/info", false, function(data){
     $("#profile-username").text(data.user.local.first_name + " " + data.user.local.last_name);
-    // $("#show-user-pic").html('<img width="250px" src="' + data.user.local.image_url + '" />');
+    $("#show-user-pic").html('<img width="250px" src="' + data.user.local.image_url + '" />');
 		$("#show-user-bio").html(data.user.local.bio);
     return data;
 	});
