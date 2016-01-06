@@ -35,10 +35,12 @@ section#home-page {
 .ui.text.container {
 	margin-top: 200px;
 	color: black;
+	text-align: left;
 }
 
 .ui.text.container h1 {
 	color: black;
+	margin-left: 120px;
 }
 
 .ui.inverted.menu {
