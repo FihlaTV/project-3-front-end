@@ -37,9 +37,9 @@ function init(){
     if(e.target != e.currentTarget){
       e.preventDefault();
       if(e.target.getAttribute('data-name') === 'home-page'){
-        var data = e.target.getAttribute('data-name'), url = 'project-3-front-end/';
+        var data = e.target.getAttribute('data-name'), url = '/';
       } else {
-        var data = e.target.getAttribute('data-name'), url = 'project-3-front-end/' + data;
+        var data = e.target.getAttribute('data-name'), url = '/' + data;
       }
       history.pushState(data, null, url);
 
@@ -382,6 +382,7 @@ function authenticationSuccessful(data) {
 
 function setToken(token) {
 	localStorage.setItem("token", token);
+	console.log(token);
   checkLoginState();
   populateInputs();
   return getUserDetails();
