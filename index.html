@@ -296,35 +296,35 @@
             <h1 class="text-center">Add your home</h1>
             <form class="ui form add-home" action="/api/homes" method="post" enctype="multipart/form-data">
               <div class="field add-home-type">
-                <label>Type of home</label>
+                <label for="type">Type of home</label>
                 <input type="text" name="type" placeholder="Type of home">
               </div>
               <div class="field add-home-image">
-                <label>Image</label>
+                <label for="image">Image</label>
                 <input type="file" name="image">
               </div>
               <div class="field add-home-description">
-                <label>Description And Responsibilities</label>
+                <label for="description">Description And Responsibilities</label>
                 <input type="text" name="description" placeholder="Description And Responsibilities">
               </div>
               <div class="field add-home-address">
-                <label>Address</label>
+                <label for="address">Address</label>
                 <input type="text" name="address" placeholder="Address">
               </div>
               <div class="field add-home-postcode">
-                <label>Postcode</label>
+                <label for="postcode">Postcode</label>
                 <input type="text" name="postcode" placeholder="Postcode">
               </div>
               <div class="field add-home-date-from">
-                <label>Date From</label>
+                <label for="date_from">Date From</label>
                 <input type="date" name="date_from" placeholder="Date From">
               </div>
               <div class="field add-home-date-to">
-                <label>Date To</label>
+                <label for="date_to">Date To</label>
                 <input type="date" name="date_to" placeholder="Date To">
               </div>
               <div class="field">
-                <label>Pets</label>
+                <label for="pets">Pets</label>
                 <select name="pets" multiple class="ui dropdown">
                   <option value="">Select pets</option>
                   <option value="dogs">Dog(s)</option>
@@ -349,6 +349,7 @@
             <h1 class="text-center">Edit your home details</h1>
             <form class="ui form edit-home" action="/api/homes" method="PUT" enctype="multipart/form-data">
               <input type="hidden" name="_id">
+              <input type="hidden" name="_user_id">
               <div class="field edit-home-type">
                 <label for="type">Type of home</label>
                 <input type="text" name="type" id="home-type" placeholder="Type of home">

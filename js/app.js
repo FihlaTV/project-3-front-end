@@ -21,7 +21,7 @@ function init(){
     subject=$("#subject").val();
     text=$("#content").val();
     $("#message").text("Sending E-mail...Please wait");
-    $.get("https://project-3-api.herokuapp.com/send",{to:to,subject:subject,text:text},function(data){
+    $.get("http://project-3-api.herokuapp.com/send",{to:to,subject:subject,text:text},function(data){
       console.log(data);
       if(data=="sent")
       {
@@ -195,7 +195,7 @@ function init(){
 // }
 
 function getUserEmail(){
-  ajaxRequest("get", "https://project-3-api.herokuapp.com/users/info", false, function(data){
+  ajaxRequest("get", "http://project-3-api.herokuapp.com/users/info", false, function(data){
     return populateEmail(data.user);
   });
 }
@@ -213,8 +213,8 @@ function loggedInState(){
   console.log("logged in");
   $('div#logged-out').hide();
   $('div#logged-in').show();
-  ajaxRequest("get", "https://project-3-api.herokuapp.com/users/info", false, function(data){
-    if(data.user.local.home.length > 0) {
+  ajaxRequest("get", "http://project-3-api.herokuapp.com/users/info", false, function(data){
+    if(data.user && data.user.local.home.length > 0) {
       $('a#edit-home').show();
       $('a#add-home').hide();
     } else {
@@ -235,7 +235,7 @@ function submitForm(){
 	event.preventDefault();
 	var $form = $(this)
 	var method = $form.attr('method');
-	var url = "https://project-3-api.herokuapp.com" + $form.attr('action');
+	var url = "http://project-3-api.herokuapp.com" + $form.attr('action');
   if($form.find('[name=_id]').length > 0) { url += '/' + $form.find('[name=_id]').val(); }
 	var isFileUpload = $form.attr("enctype") === 'multipart/form-data';
 	var data = $form.serialize();
@@ -273,8 +273,11 @@ function submitForm(){
 	return ajaxRequest(method, url, data, authenticationSuccessful, isFileUpload);
 }
 
+
+
 function getUserDetails(){
-	ajaxRequest("get", "https://project-3-api.herokuapp.com/users/info", false, function(data){
+	ajaxRequest("get", "http://project-3-api.herokuapp.com/users/info", false, function(data){
+		console.log(data);
     $("#profile-username").text(data.user.local.first_name + " " + data.user.local.last_name);
     $("#show-user-pic").html('<img width="250px" src="' + data.user.local.image_url + '" />');
 		$("#show-user-bio").html(data.user.local.bio);
@@ -283,7 +286,7 @@ function getUserDetails(){
 }
 
 function populateInputs(){
-  ajaxRequest("get", "https://project-3-api.herokuapp.com/users/info", false, function(data){
+  ajaxRequest("get", "http://project-3-api.herokuapp.com/users/info", false, function(data){
     $("form.edit-user [name=_id]").val(data.user._id);
     $("#edit-user-first-name").val(data.user.local.first_name);
     $("#edit-user-last-name").val(data.user.local.last_name);
@@ -292,8 +295,9 @@ function populateInputs(){
 }
 
 function populateHomeInputs(){
-  ajaxRequest("get", "https://project-3-api.herokuapp.com/users/info", false, function(data){
+  ajaxRequest("get", "http://project-3-api.herokuapp.com/users/info", false, function(data){
     $("form.edit-home [name=_id]").val(data.user.local.home[0]._id);
+    $("form.edit-home [name=_user_id]").val(data.user._id);
     $("#home-type").val(data.user.local.home[0].type);
     $("#home-description").val(data.user.local.home[0].description);
     $("#home-postcode").val(data.user.local.home[0].postcode);
@@ -315,7 +319,7 @@ function displayHomes() {
 	$('#search').keyup(function(){
 	  var searchField = $('#search').val();
 	  var myExp = new RegExp(searchField, 'i');
-	  ajaxRequest("get", "https://project-3-api.herokuapp.com/users", false, function(data){
+	  ajaxRequest("get", "http://project-3-api.herokuapp.com/users", false, function(data){
 	    var output = '<div class="ui link cards">';
 	    $.each(data.users, function(i, user){
         if(user.local.home.length > 0 ) {
@@ -347,7 +351,7 @@ function displayHomes() {
 
 
 function displayHome(id){
-  ajaxRequest("get", "https://project-3-api.herokuapp.com/users", false, function(data){
+  ajaxRequest("get", "http://project-3-api.herokuapp.com/users", false, function(data){
     $.each(data.users, function(i, user){
       if((user.local.home.length > 0) && id === user.local.home[0]._id){
         var image_url = "https://s3-eu-west-1.amazonaws.com/wdi16-project-3/" + user.local.home[0].home_image;
@@ -382,7 +386,6 @@ function authenticationSuccessful(data) {
 
 function setToken(token) {
 	localStorage.setItem("token", token);
-	console.log(token);
   checkLoginState();
   populateInputs();
   return getUserDetails();
@@ -402,7 +405,6 @@ function setRequestHeader(xhr, settings) {
 }
 
 function ajaxRequest(method, url, data, callback, isFileUpload) {
-
 	var options = {
 		method: method,
 		url: url,
